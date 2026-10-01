@@ -1,0 +1,61 @@
+# Location Manager seed for the real station (set LOCATIONS_FILE=./locations.yaml
+# in .env). Read only when the location database is empty; afterwards the
+# Location Manager holds the live values.
+#
+# All coordinates are gantry machine coordinates in mm and depend on your
+# station: enter the values taught on it. A location without taught_at refuses
+# motion; add taught_at (ISO date-time) once its values are taught.
+#
+# L4-L6 are the three tube positions on the Pen-side balance. A Pen's
+# nozzle is placed at a position's x/y/z plus that Pen's dispense offset.
+locations:
+- location_name: L4
+  description: Tube position 4 on the Pen-side balance
+  representations:
+    formulator_pen_weighing_node:
+      x: null        # Enter the taught X coordinate of this tube [mm]
+      y: null        # Enter the taught Y coordinate of this tube [mm]
+      z: null        # Enter the taught Z coordinate of this tube [mm]
+- location_name: L5
+  description: Tube position 5 on the Pen-side balance
+  representations:
+    formulator_pen_weighing_node:
+      x: null        # Enter the taught X coordinate of this tube [mm]
+      y: null        # Enter the taught Y coordinate of this tube [mm]
+      z: null        # Enter the taught Z coordinate of this tube [mm]
+- location_name: L6
+  description: Tube position 6 on the Pen-side balance
+  representations:
+    formulator_pen_weighing_node:
+      x: null        # Enter the taught X coordinate of this tube [mm]
+      y: null        # Enter the taught Y coordinate of this tube [mm]
+      z: null        # Enter the taught Z coordinate of this tube [mm]
+- location_name: tool_offset_formulator_pen_1
+  description: Formulator Pen 1 -- parking seat, return buffer, and nozzle offset
+  representations:
+    formulator_pen_weighing_node:
+      home_x: null           # Enter the X coordinate at which the tool changer locks this Pen [mm]
+      home_y: null           # Enter the Y coordinate at which the tool changer locks this Pen [mm]
+      home_z: null           # Enter the Z coordinate at which the tool changer locks this Pen [mm]
+      return_buffer_y: null  # Enter the Y retreat from the seat before raising Z [mm]
+      dispense_dx: null      # Enter the nozzle X offset from a taught tube position [mm]
+      dispense_dy: null      # Enter the nozzle Y offset from a taught tube position [mm]
+      dispense_dz: null      # Enter the nozzle Z offset from a taught tube position [mm]
+- location_name: tool_offset_formulator_pen_2
+  description: Formulator Pen 2 -- parking seat, return buffer, and nozzle offset
+  representations:
+    formulator_pen_weighing_node:
+      home_x: null           # Enter the X coordinate at which the tool changer locks this Pen [mm]
+      home_y: null           # Enter the Y coordinate at which the tool changer locks this Pen [mm]
+      home_z: null           # Enter the Z coordinate at which the tool changer locks this Pen [mm]
+      return_buffer_y: null  # Enter the Y retreat from the seat before raising Z [mm]
+      dispense_dx: null      # Enter the nozzle X offset from a taught tube position [mm]
+      dispense_dy: null      # Enter the nozzle Y offset from a taught tube position [mm]
+      dispense_dz: null      # Enter the nozzle Z offset from a taught tube position [mm]
+- location_name: gantry_params
+  description: Gantry-wide clearance and speeds
+  representations:
+    formulator_pen_weighing_node:
+      safe_y_no_tool: null  # Enter the Y at which the empty head clears every parked Pen [mm]
+      normal_speed: null    # Enter the travel feed rate [mm/min] (at most 2000)
+      slow_speed: null      # Enter the feed rate for seating a Pen in the tool changer [mm/min]

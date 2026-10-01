@@ -1,0 +1,30 @@
+# Pen-side settings for formulator_pen/run_job.py (on the Pen-side Raspberry Pi 5).
+
+# Pen name -> Pico W endpoint and the material it holds. The names match the
+# gantry tool names used by the MADSci node. Each material must be registered
+# in the MADSci Resource Manager (resources/register_materials.py); its fluid
+# profile is a key of FLUID_PROFILES in formulator_pen/dispense_system.py.
+pens:
+  formulator_pen_1:
+    host: "<pen-1-pico-ip>"            # Enter the IP address of Formulator Pen 1's Pico W
+    port: 8888                         # TCP port of the Pico W firmware (FORMULATOR_TCP_PORT)
+    formulator_id: formulator_pen_1
+    material: "<material-in-pen-1>"    # Enter the name of the material loaded in Formulator Pen 1
+    fluid_profile: "<fluid-profile-1>" # Enter its FLUID_PROFILES key, e.g. BLUESILV12
+  formulator_pen_2:
+    host: "<pen-2-pico-ip>"            # Enter the IP address of Formulator Pen 2's Pico W
+    port: 8888
+    formulator_id: formulator_pen_2
+    material: "<material-in-pen-2>"    # Enter the name of the material loaded in Formulator Pen 2
+    fluid_profile: "<fluid-profile-2>" # Enter its FLUID_PROFILES key, e.g. SILTECH60
+
+balance:
+  serial_port: "<balance-serial-device>"  # Enter the balance's serial device, e.g. /dev/serial/by-id/usb-...
+  baud_rate: 9600
+  timeout: 2.0
+
+# Upper bound for one actuator move, passed to FormulatorDriver.
+pump_timeout_s: 2000.0
+
+# Excel log of every job record, appended by IntegratedDispenser.
+results_path: data/dispense_results.xlsx

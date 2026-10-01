@@ -1,0 +1,5 @@
+# Pen-side Raspberry Pi 5: python3 -m pip install -r formulator_pen/requirements.txt
+pyserial==3.5
+pandas==3.0.1
+openpyxl==3.1.5
+PyYAML

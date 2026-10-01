@@ -1,0 +1,25 @@
+[project]
+name = "formulator_pen_madsci"
+version = "0.1.0"
+description = "Two Formulator Pens with tool change and gravimetric verification, orchestrated by MADSci"
+requires-python = ">=3.10"
+dependencies = [
+    "madsci.client==0.8.0",
+    "madsci.node_module==0.8.0",
+    "jinja2",  # required by madsci.client 0.8.0 but not declared by it
+    "filelock",  # required by madsci.node_module 0.8.0 at node start but not declared by it
+    "PyYAML",
+]
+
+[project.optional-dependencies]
+# Lab PC: experiment script and result export (the node itself runs in Docker).
+# The Pen-side Raspberry Pi 5 needs only formulator_pen/requirements.txt.
+lab = ["madsci.experiment_application==0.8.0"]
+dev = ["pytest>=7.0", "pyserial", "pandas", "openpyxl"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+# Run from the repository root; the project is installed for its dependencies only.
+[tool.setuptools]
+packages = []

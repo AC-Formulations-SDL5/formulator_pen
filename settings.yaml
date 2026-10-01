@@ -1,0 +1,35 @@
+# Settings for formulator_pen_madsci
+#
+# This file contains default configuration values and is safe to commit to git.
+# Override any value with environment variables (prefixed, e.g. EVENT_SERVER_URL)
+# or a .env file (gitignored) for secrets and environment-specific overrides.
+
+# Lab Manager
+lab_server_url: http://localhost:8000/
+
+# Event Manager
+event_server_url: http://localhost:8001/
+event_database_name: events
+# Note: document_db_url is in .env because FerretDB requires authentication.
+
+# Experiment Manager
+experiment_server_url: http://localhost:8002/
+experiment_database_name: experiments
+# Note: document_db_url is in .env because FerretDB requires authentication.
+
+# Resource Manager
+resource_server_url: http://localhost:8003/
+# Note: resource_db_url contains credentials and is in .env instead.
+
+# Data Manager
+data_server_url: http://localhost:8004/
+data_database_name: data
+# Note: document_db_url is in .env because FerretDB requires authentication.
+
+# Workcell Manager
+workcell_server_url: http://localhost:8005/
+workcell_database_name: workcells
+# Note: document_db_url is in .env because FerretDB requires authentication.
+
+# Location Manager
+location_server_url: http://localhost:8006/

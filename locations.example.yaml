@@ -1,0 +1,32 @@
+# Example geometry for running without hardware (interface_type: fake).
+# The coordinates are illustrative, not taught on a station. For the real
+# station use locations.yaml with the values taught on it (LOCATIONS_FILE in .env).
+locations:
+- location_name: L4
+  description: Tube position 4 on the Pen-side balance
+  representations:
+    formulator_pen_weighing_node: {x: 300.0, y: 180.0, z: -45.0, taught_at: example}
+- location_name: L5
+  description: Tube position 5 on the Pen-side balance
+  representations:
+    formulator_pen_weighing_node: {x: 280.0, y: 205.0, z: -45.0, taught_at: example}
+- location_name: L6
+  description: Tube position 6 on the Pen-side balance
+  representations:
+    formulator_pen_weighing_node: {x: 320.0, y: 205.0, z: -45.0, taught_at: example}
+- location_name: tool_offset_formulator_pen_1
+  description: Formulator Pen 1 -- parking seat, return buffer, and nozzle offset
+  representations:
+    formulator_pen_weighing_node:
+      {home_x: 120.0, home_y: 70.0, home_z: -65.0, return_buffer_y: 70.0,
+       dispense_dx: 17.0, dispense_dy: 90.0, dispense_dz: 14.0, taught_at: example}
+- location_name: tool_offset_formulator_pen_2
+  description: Formulator Pen 2 -- parking seat, return buffer, and nozzle offset
+  representations:
+    formulator_pen_weighing_node:
+      {home_x: 300.0, home_y: 70.0, home_z: -65.0, return_buffer_y: 70.0,
+       dispense_dx: 16.0, dispense_dy: 88.0, dispense_dz: 14.0, taught_at: example}
+- location_name: gantry_params
+  description: Gantry-wide clearance and speeds
+  representations:
+    formulator_pen_weighing_node: {safe_y_no_tool: 110.0, normal_speed: 2000, slow_speed: 300.0}
