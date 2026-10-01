@@ -277,7 +277,8 @@ MADSci 0.8.0 file, distributed under the MADSci MIT license in
 
 ## Acknowledgements
 
-Developed at the University of Toronto with the Acceleration Consortium.
+Developed at the University of Toronto with the Acceleration Consortium, in
+collaboration with SEKISUI CHEMICAL CO., LTD.
 
 ## Contact
 
