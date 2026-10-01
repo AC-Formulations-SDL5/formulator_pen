@@ -278,3 +278,13 @@ MADSci 0.8.0 file, distributed under the MADSci MIT license in
 ## Acknowledgements
 
 Developed at the University of Toronto with the Acceleration Consortium.
+
+## Contact
+
+**Self-Driving Laboratory (SDL5) Formulation**<br>
+Acceleration Consortium<br>
+University of Toronto
+
+- Frantz Le Devedec ([frantz.ledevedec@utoronto.ca](mailto:frantz.ledevedec@utoronto.ca))
+- Mahdi Rastegardoost ([m.rastegardoost@utoronto.ca](mailto:m.rastegardoost@utoronto.ca))
+- Zeqing Bao ([zeqing.bao@utoronto.ca](mailto:zeqing.bao@utoronto.ca))
