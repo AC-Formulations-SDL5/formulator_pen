@@ -287,4 +287,3 @@ University of Toronto
 
 - Frantz Le Devedec ([frantz.ledevedec@utoronto.ca](mailto:frantz.ledevedec@utoronto.ca))
 - Mahdi Rastegardoost ([m.rastegardoost@utoronto.ca](mailto:m.rastegardoost@utoronto.ca))
-- Zeqing Bao ([zeqing.bao@utoronto.ca](mailto:zeqing.bao@utoronto.ca))
