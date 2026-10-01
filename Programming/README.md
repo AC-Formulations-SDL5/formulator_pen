@@ -31,7 +31,9 @@ The firmware listens on TCP port 8888 for line commands from the Pen-side Pi:
 | Command | Meaning |
 |---|---|
 | `VALVE:<UP\|CLOSED\|THRU>` | move the valve |
-| `PUMP:<volume>,<dir>[,<pwm>]` | move the actuator by a volume |
+| `MODE:<NORMAL\|PRIMING>` | select the actuator window for normal jobs or priming |
+| `PUMP:<volume>,<IN\|OUT>[,<pwm>][,<profile\|steps>]` | `IN`: move to the actuator position for a volume (draw); `OUT`: move back to the home position (dispense all) |
+| `STEP:<target_percent>,<IN\|OUT>[,<pwm>][,<profile\|steps>]` | move to an actuator position in steps limited by the fluid's step profile (partial dispenses from one fill, priming, pressure relief) |
 | `POS`, `STATUS`, `READY?` | position and state queries |
 | `SETPROFILE:<name>,<IN\|OUT>,<enabled>,<min>,<max>,<pause_ms>` | stepped-motion limits for a fluid |
 | `SETFLUID:<name>` | runtime default fluid profile |

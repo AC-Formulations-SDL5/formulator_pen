@@ -8,5 +8,6 @@ __pycache__/
 .env
 
 # Runtime data: node Excel logs, experiment run records, MADSci state
-data/
-.madsci/
+Orchestration/data/
+Orchestration/.madsci/
+Programming/data/
