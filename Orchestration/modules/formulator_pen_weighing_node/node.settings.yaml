@@ -20,6 +20,6 @@ tool_changer:
 # are PEN_RPI_HOST / PEN_RPI_USER / PEN_RPI_PASSWORD in .env.
 formulator_pen:
   port: 22
-  remote_dir: "<repository-path-on-pen-rpi>"  # Enter where this repository is cloned on the Pen-side Pi, e.g. /home/pi/formulator_pen_madsci
-  python: python3          # Python on the Pen-side Pi with formulator_pen/requirements.txt installed
+  remote_dir: "<programming-path-on-pen-rpi>"  # Enter the Programming folder of this repository on the Pen-side Pi, e.g. /home/pi/formulator_pen/Programming
+  python: python3          # Python on the Pen-side Pi with Programming/requirements.txt installed
   command_timeout_s: 3600.0

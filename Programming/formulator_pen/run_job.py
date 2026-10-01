@@ -13,7 +13,7 @@ SSH once per command.
     python -m formulator_pen.run_job loaded-materials
 
 Which material each Pen holds and the fluid profile it is dispensed with are
-set in ``formulator_pen/pen_config.yaml``. The last line of the output is
+set in ``Programming/formulator_pen/pen_config.yaml``. The last line of the output is
 ``RESULT_JSON: <record>``; the exit code is 0 only when the job completed.
 """
 

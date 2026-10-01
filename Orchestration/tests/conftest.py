@@ -5,6 +5,8 @@ from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+# Pen-side package (formulator_pen), used by the fake Pen.
+sys.path.insert(0, str(ROOT.parent / "Programming"))
 
 
 class EventLogger:

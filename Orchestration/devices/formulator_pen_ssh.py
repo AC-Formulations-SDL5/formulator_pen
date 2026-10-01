@@ -1,6 +1,6 @@
 """Formulator Pen commands over SSH to the Pen-side Raspberry Pi 5.
 
-Each command starts ``formulator_pen/run_job.py`` on the Pen-side Pi, which
+Each command starts ``Programming/formulator_pen/run_job.py`` on the Pen-side Pi, which
 connects to the Pen's Pico W and the balance, runs one job, prints its record,
 and exits. The record is parsed from the ``RESULT_JSON:`` line.
 """
@@ -47,7 +47,7 @@ class FormulatorPenSsh:
         username: str,
         password: str,
         port: int = 22,
-        remote_dir: str = "formulator_pen_madsci",
+        remote_dir: str = "formulator_pen/Programming",
         python: str = "python3",
         command_timeout_s: float = 3600.0,
         logger: Optional[logging.Logger] = None,
