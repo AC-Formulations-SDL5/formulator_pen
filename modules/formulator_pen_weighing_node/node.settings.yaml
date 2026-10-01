@@ -1,0 +1,25 @@
+node_name: formulator_pen_weighing_node
+node_type: device
+node_description: Formulator Pen weighing -- two Pens, tool changer, XYZ gantry, and balance.
+node_url: http://0.0.0.0:2000/
+
+# fake: simulated devices on this PC; real: the two Raspberry Pis below.
+interface_type: fake
+
+# SiLA 2 servers on the cell-side Raspberry Pi 5.
+xyz_gantry:
+  host: "<cell-rpi-host>"  # Enter the IP address or hostname of the cell-side Raspberry Pi 5
+  sila_port: 50053         # Enter the port of the XYZ gantry SiLA 2 server
+  insecure: true
+tool_changer:
+  host: "<cell-rpi-host>"  # Enter the IP address or hostname of the cell-side Raspberry Pi 5
+  sila_port: 50054         # Enter the port of the tool changer SiLA 2 server
+  insecure: true
+
+# The Pen-side Raspberry Pi 5, reached over SSH. Its host, user, and password
+# are PEN_RPI_HOST / PEN_RPI_USER / PEN_RPI_PASSWORD in .env.
+formulator_pen:
+  port: 22
+  remote_dir: "<repository-path-on-pen-rpi>"  # Enter where this repository is cloned on the Pen-side Pi, e.g. /home/pi/formulator_pen_madsci
+  python: python3          # Python on the Pen-side Pi with formulator_pen/requirements.txt installed
+  command_timeout_s: 3600.0

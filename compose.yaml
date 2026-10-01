@@ -1,0 +1,239 @@
+# Docker Compose configuration for formulator_pen_madsci (runs on the lab PC)
+#
+# Usage:
+#   docker compose up -d          # Start all services
+#   docker compose down            # Stop all services
+#   docker compose logs -f         # Follow all logs
+
+services:
+  # --- Infrastructure ---
+
+  postgres:
+    restart: unless-stopped
+    image: ghcr.io/ferretdb/postgres-documentdb-dev:17-ferretdb
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-madsci}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-madsci}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U madsci"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ferretdb:
+    restart: unless-stopped
+    image: ghcr.io/ferretdb/ferretdb:2
+    ports:
+      - "27017:27017"
+    environment:
+      - FERRETDB_POSTGRESQL_URL=postgres://madsci:madsci@postgres:5432/postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Dedicated PostgreSQL for the Resource Manager, separate from the
+  # FerretDB/DocumentDB postgres above: its migration tool manages the whole schema.
+  postgres_resources:
+    restart: unless-stopped
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-madsci}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-madsci}
+      POSTGRES_DB: resources
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_resources_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U madsci"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  valkey:
+    restart: unless-stopped
+    image: valkey/valkey:8
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # --- MADSci Managers ---
+
+  # Every manager is started with an explicit `command:`.
+  lab_manager:
+    restart: unless-stopped
+    image: ghcr.io/ad-sdl/madsci_dashboard:v0.8.0
+    command: python -m madsci.squid.lab_server
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      # Each manager binds 0.0.0.0 so its published port is reachable from the host.
+      LAB_SERVER_URL: http://0.0.0.0:8000/
+      DOCUMENT_DB_URL: mongodb://madsci:madsci@ferretdb:27017/
+      # The dashboard hands these URLs to the browser, and the Lab Manager uses
+      # them for its health checks. kubernetes.docker.internal resolves to the
+      # host both in the browser (Docker Desktop) and in the container
+      # (extra_hosts below).
+      EVENT_SERVER_URL: http://kubernetes.docker.internal:8001/
+      EXPERIMENT_SERVER_URL: http://kubernetes.docker.internal:8002/
+      RESOURCE_SERVER_URL: http://kubernetes.docker.internal:8003/
+      DATA_SERVER_URL: http://kubernetes.docker.internal:8004/
+      WORKCELL_SERVER_URL: http://kubernetes.docker.internal:8005/
+      LOCATION_SERVER_URL: http://kubernetes.docker.internal:8006/
+    extra_hosts:
+      - "kubernetes.docker.internal:host-gateway"
+    depends_on:
+      ferretdb:
+        condition: service_started
+
+  event_manager:
+    restart: unless-stopped
+    image: ghcr.io/ad-sdl/madsci:v0.8.0
+    command: python -m madsci.event_manager.event_server
+    ports:
+      - "8001:8001"
+    env_file: .env
+    environment:
+      EVENT_SERVER_URL: http://0.0.0.0:8001/
+      # In-container DB access must use compose service names, not localhost
+      DOCUMENT_DB_URL: mongodb://madsci:madsci@ferretdb:27017/
+    depends_on:
+      ferretdb:
+        condition: service_started
+
+  experiment_manager:
+    restart: unless-stopped
+    image: ghcr.io/ad-sdl/madsci:v0.8.0
+    command: python -m madsci.experiment_manager.experiment_server
+    ports:
+      - "8002:8002"
+    env_file: .env
+    environment:
+      EXPERIMENT_SERVER_URL: http://0.0.0.0:8002/
+      EVENT_SERVER_URL: http://event_manager:8001/
+      DOCUMENT_DB_URL: mongodb://madsci:madsci@ferretdb:27017/
+    depends_on:
+      ferretdb:
+        condition: service_started
+
+  resource_manager:
+    restart: unless-stopped
+    image: ghcr.io/ad-sdl/madsci:v0.8.0
+    command: python -m madsci.resource_manager.resource_server
+    ports:
+      - "8003:8003"
+    env_file: .env
+    environment:
+      RESOURCE_SERVER_URL: http://0.0.0.0:8003/
+      EVENT_SERVER_URL: http://event_manager:8001/
+      RESOURCE_DB_URL: postgresql://madsci:madsci@postgres_resources:5432/resources
+    depends_on:
+      postgres_resources:
+        condition: service_healthy
+
+  data_manager:
+    restart: unless-stopped
+    image: ghcr.io/ad-sdl/madsci:v0.8.0
+    command: python -m madsci.data_manager.data_server
+    ports:
+      - "8004:8004"
+    env_file: .env
+    environment:
+      DATA_SERVER_URL: http://0.0.0.0:8004/
+      EVENT_SERVER_URL: http://event_manager:8001/
+      DOCUMENT_DB_URL: mongodb://madsci:madsci@ferretdb:27017/
+    depends_on:
+      ferretdb:
+        condition: service_started
+
+  workcell_manager:
+    restart: unless-stopped
+    image: ghcr.io/ad-sdl/madsci:v0.8.0
+    # Applies patches/madsci-0.8.0 after checking that the installed file is the
+    # official 0.8.0 one, then starts the server (see patches/madsci-0.8.0/README.md).
+    command: sh -c "python /home/madsci/patches/apply_patches.py && exec python -m madsci.workcell_manager.workcell_server --cold_start_delay 0"
+    volumes:
+      - ./patches/madsci-0.8.0:/home/madsci/patches:ro
+    ports:
+      - "8005:8005"
+    env_file: .env
+    environment:
+      WORKCELL_SERVER_URL: http://0.0.0.0:8005/
+      EVENT_SERVER_URL: http://event_manager:8001/
+      RESOURCE_SERVER_URL: http://resource_manager:8003/
+      DATA_SERVER_URL: http://data_manager:8004/
+      LOCATION_SERVER_URL: http://location_manager:8006/
+      DOCUMENT_DB_URL: mongodb://madsci:madsci@ferretdb:27017/
+      WORKCELL_CACHE_HOST: valkey
+      # Registered nodes: node name -> node URL inside the compose network.
+      WORKCELL_NODES: '{"formulator_pen_weighing_node": "http://formulator_pen_weighing_node:2000/"}'
+    depends_on:
+      ferretdb:
+        condition: service_started
+      valkey:
+        condition: service_healthy
+
+  location_manager:
+    restart: unless-stopped
+    image: ghcr.io/ad-sdl/madsci:v0.8.0
+    command: python -m madsci.location_manager.location_server
+    ports:
+      - "8006:8006"
+    env_file: .env
+    environment:
+      LOCATION_SERVER_URL: http://0.0.0.0:8006/
+      EVENT_SERVER_URL: http://event_manager:8001/
+      RESOURCE_SERVER_URL: http://resource_manager:8003/
+      DOCUMENT_DB_URL: mongodb://madsci:madsci@ferretdb:27017/
+      LOCATION_CACHE_HOST: valkey
+      # Geometry seed file: LOCATIONS_FILE in .env (locations.yaml by default).
+      LOCATION_LAB_CONFIG_FILE: /home/madsci/locations.yaml
+    volumes:
+      - ${LOCATIONS_FILE:-./locations.yaml}:/home/madsci/locations.yaml:ro
+    depends_on:
+      ferretdb:
+        condition: service_started
+      valkey:
+        condition: service_healthy
+
+  # --- Nodes ---
+  # One node for the whole station. It reaches the SiLA 2 servers on the
+  # cell-side Raspberry Pi 5 and, over SSH, the Pen-side Raspberry Pi 5
+  # (PEN_RPI_* in .env).
+
+  formulator_pen_weighing_node:
+    build: .
+    env_file: .env
+    command: python modules/formulator_pen_weighing_node/formulator_pen_weighing_node.py
+    volumes:
+      - .:/home/madsci/formulator_pen_madsci
+    working_dir: /home/madsci/formulator_pen_madsci
+    restart: unless-stopped
+    ports:
+      - "2000:2000"
+    environment:
+      PYTHONPATH: /home/madsci/formulator_pen_madsci
+      NODE_NAME: formulator_pen_weighing_node
+      NODE_URL: http://0.0.0.0:2000/
+      EVENT_SERVER_URL: http://event_manager:8001/
+      DATA_SERVER_URL: http://data_manager:8004/
+      RESOURCE_SERVER_URL: http://resource_manager:8003/
+      LOCATION_SERVER_URL: http://location_manager:8006/
+    depends_on:
+      - event_manager
+      - resource_manager
+      - location_manager
+
+volumes:
+  postgres_data:
+  postgres_resources_data:

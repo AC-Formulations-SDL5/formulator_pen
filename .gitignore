@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+
+# Secrets and local overrides
+.env
+
+# Runtime data: node Excel logs, experiment run records, MADSci state
+data/
+.madsci/
