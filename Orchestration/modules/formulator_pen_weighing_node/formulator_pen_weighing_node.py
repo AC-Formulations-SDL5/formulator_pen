@@ -5,7 +5,7 @@ One node holds every device of the station, as in the formulation cell:
 - ``xyz_gantry`` and ``tool_changer``: SiLA 2 servers on the cell-side
   Raspberry Pi 5.
 - ``formulator_pen``: the Pen-side Raspberry Pi 5, reached over SSH. Each
-  command runs ``formulator_pen/run_job.py`` there, which connects to the
+  command runs ``Programming/formulator_pen/run_job.py`` there, which connects to the
   Pen's Pico W over WiFi and to the balance over USB serial, runs one
   ``IntegratedDispenser`` job, and returns its record.
 
@@ -22,7 +22,7 @@ A location without ``taught_at`` refuses motion. A Pen's travel Y is the
 lowest nozzle Y it reaches over any taught position, so moves between the
 parking band and a position never pass below the envelope verified while
 teaching. Which material each Pen holds is set on the Pen side
-(``formulator_pen/pen_config.yaml``); a material must also be registered in
+(``Programming/formulator_pen/pen_config.yaml``); a material must also be registered in
 the Resource Manager as a Formulator Pen material. A failed or cancelled
 action stops where it stands.
 """
@@ -61,7 +61,7 @@ class PenSideSsh(BaseModel):
     """Where run_job.py lives on the Pen-side Pi. Host, user, and password come from .env."""
 
     port: int = 22
-    remote_dir: str = "formulator_pen_madsci"
+    remote_dir: str = "formulator_pen/Programming"
     python: str = "python3"
     command_timeout_s: float = 3600.0
 

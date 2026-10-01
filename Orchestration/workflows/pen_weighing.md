@@ -9,7 +9,7 @@ Generated for each run by `experiments/pen_weighing.py` from a condition table;
 | column | type | rule |
 |---|---|---|
 | `position` | str | a taught tube position on the Pen-side balance (`L4`-`L6`) |
-| `material` | str | a material loaded in one of the Pens (`material` in `formulator_pen/pen_config.yaml`) and registered in the Resource Manager |
+| `material` | str | a material loaded in one of the Pens (`material` in `Programming/formulator_pen/pen_config.yaml`) and registered in the Resource Manager |
 | `target_g` | float | > 0; target mass [g] |
 
 The table never names a Pen: each material is dispensed by the Pen that holds
@@ -38,7 +38,7 @@ Pen holds too little.
 ## Results
 
 Each `dispense` step returns the `IntegratedDispenser` job record printed by
-`formulator_pen/run_job.py` on the Pen-side Pi, plus `pen`, `material`,
+`Programming/formulator_pen/run_job.py` on the Pen-side Pi, plus `pen`, `material`,
 `target_g`, and `position`. The record's `volume_ml` holds the same target as
 `target_g` (the fluid profiles are calibrated against weighed mass). The record includes the measured mass
 (`actual_weight_g`), the actuator position before and after the dispense

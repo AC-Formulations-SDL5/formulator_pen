@@ -7,7 +7,7 @@ Reads which material each Pen holds from the running
 formulator_pen_weighing_node (which reads it from the Pen side) and creates,
 or recreates, each material's ``material.<slug>`` ResourceTemplate with the
 material name and the dispensing device. Calibration data is not registered:
-it stays in formulator_pen/dispense_system.py.
+it stays in Programming/formulator_pen/dispense_system.py.
 """
 
 import argparse
@@ -35,7 +35,7 @@ def main() -> None:
     state = WorkcellClient(workcell_server_url=args.workcell_url).get_node(NODE).state or {}
     loaded = state.get("loaded_materials") or {}
     if not loaded:
-        sys.exit(f"{NODE} reports no loaded materials; check formulator_pen/pen_config.yaml and the node")
+        sys.exit(f"{NODE} reports no loaded materials; check Programming/formulator_pen/pen_config.yaml and the node")
 
     client = ResourceClient(resource_server_url=args.resource_url)
     for material in dict.fromkeys(loaded.values()):

@@ -1,101 +1,125 @@
-# formulator_pen_madsci
+<p align="center">
+  <img src="media/logo.png" alt="University of Toronto | Acceleration Consortium" width="600">
+</p>
 
-Gravimetric dispensing with two Formulator Pens that share one XYZ gantry
-through a tool changer, orchestrated by [MADSci](https://github.com/AD-SDL/MADSci)
-0.8.0. Each Pen holds its own material. A condition table lists the target
-mass of each material per tube; MADSci mounts the Pen holding each material,
-places its nozzle over each tube on the balance, dispenses, weighs every
-dispense, and parks the Pen again. All actions, results, and events are
-recorded by the MADSci managers.
+<h1 align="center">Formulator Pen</h1>
 
-## System
+<p align="center">
+  <b>An open-source gravimetric liquid handler built from a CNC gantry and swappable "Formulator Pen" dispensing tools</b><br>
+  orchestrated by <a href="https://github.com/AD-SDL/MADSci">MADSci</a>
+</p>
+
+---
+
+## Overview
+
+The Formulator Pen station dispenses liquids by mass. A CNC XYZ gantry carries
+a tool changer that picks a **Formulator Pen**, a self-contained syringe
+dispenser with its own valve, linear actuator, and WiFi microcontroller, from
+a **parking rack**, moves its nozzle over a tube on an analytical balance,
+dispenses the weight the user asked for, records the measured mass, and parks
+the Pen again. Each Pen holds one liquid, so liquids never share a fluid path
+and no washing is needed between materials.
+
+The user enters a table of target masses (which material, how many grams,
+which tube). The station turns it into a workflow, picks the right Pen for
+each material, tares the balance before every dispense, and stores every
+action and every weighed result in the [MADSci](https://github.com/AD-SDL/MADSci)
+managers for later analysis.
+
+Highlights:
+
+- **Swappable dispensing tools.** Pens are picked and parked by a tool changer;
+  the station grows by adding Pens and rack seats.
+- **Viscous liquids.** Per-liquid fluid profiles set the speed and step
+  pattern of the actuator so that viscous oils (validated on Bluesil and
+  Siltech silicone oils) dispense accurately, and are calibrated against
+  weighed mass.
+- **Gravimetric verification.** Every dispense is weighed on the balance and
+  the measured mass is recorded next to the target.
+- **Orchestrated and traceable.** A single MADSci node exposes the whole
+  station; workflows, steps, results, and logs are recorded by the MADSci
+  managers and visible in its dashboard.
+- **Runs without hardware.** A fake mode simulates every device, so the full
+  software stack can be tried on any computer with Docker.
+
+<!-- Add a photo or video of the station here, e.g.
+<p align="center"><img src="media/images/station.jpg" width="700"></p>
+-->
+
+## Repository layout
+
+| Folder | Contents |
+|---|---|
+| [`CAD_Files/`](CAD_Files) | mechanical design: Formulator Pen, tool changer, parking rack, balance stage, gantry mounts |
+| [`Electronics/`](Electronics) | parts list and wiring of the Pens and the station |
+| [`Programming/`](Programming) | code that runs on the hardware: Pico W firmware and the Pen-side Raspberry Pi package |
+| [`Orchestration/`](Orchestration) | MADSci stack on the lab PC: node, experiment script, workflows, location seeds, result export, tests |
+| [`media/`](media) | logo, photos, and videos |
+| [`Manuscript/`](Manuscript) | the manuscript, its figures, and data |
+
+Each folder has its own README with the details for that part.
+
+## How it works
+
+```mermaid
+flowchart LR
+    user["Condition table<br/>(material, target_g, tube)"] --> exp
+
+    subgraph PC["Lab PC (Docker)"]
+        exp["Experiment script"] --> wc["MADSci managers<br/>Workcell / Resource / Location / Data / Event"]
+        wc --> node["formulator_pen_weighing_node"]
+    end
+
+    subgraph CELL["Cell-side Raspberry Pi 5"]
+        sg["SiLA 2: XYZ gantry"]
+        st["SiLA 2: tool changer"]
+    end
+
+    subgraph PEN["Pen-side Raspberry Pi 5"]
+        rj["run_job.py"]
+    end
+
+    node -- SiLA 2 --> sg --> gantry["CNC gantry (GRBL)"]
+    node -- SiLA 2 --> st --> tc["Tool changer"]
+    node -- SSH --> rj
+    rj -- WiFi / TCP --> p1["Formulator Pen 1<br/>(Pico W)"]
+    rj -- WiFi / TCP --> p2["Formulator Pen 2<br/>(Pico W)"]
+    rj -- USB serial --> bal["Balance"]
+```
 
 | Host | Runs | Connected to |
 |---|---|---|
 | Lab PC | MADSci managers and `formulator_pen_weighing_node` (Docker), experiment script | both Raspberry Pis over the network |
 | Cell-side Raspberry Pi 5 | SiLA 2 servers for the XYZ gantry and the tool changer | gantry controller (GRBL) and tool-changer motor over USB |
-| Pen-side Raspberry Pi 5 | `formulator_pen/run_job.py`, started by the node over SSH | each Pen's Pico W over WiFi/TCP; the balance over USB serial |
+| Pen-side Raspberry Pi 5 | `Programming/formulator_pen/run_job.py`, started by the node over SSH | each Pen's Pico W over WiFi/TCP; the balance over USB serial |
 
-The lab PC and the Pen-side Pi are on the same wireless LAN. The tool
-changer's magnetic connector supplies power to the mounted Pen only; all Pen
+The tool changer's magnetic connector powers the mounted Pen only; all Pen
 commands travel over WiFi from the Pen-side Pi.
 
-```
-formulator_pen/            Pen-side code (runs on the Pen-side Pi)
-  formulator_driver.py       Pico W WiFi/TCP driver
-  balance_api.py             balance serial driver
-  dispense_system.py         IntegratedDispenser: fill / dispense / priming jobs, fluid profiles
-  run_job.py                 execution script: one job per call, prints its record
-  pen_config.yaml            Pico W addresses, loaded materials, balance serial link
-  firmware/pico_api_step.py  MicroPython firmware for the Pico W
-devices/                   device wrappers used by the node, and their fakes
-modules/formulator_pen_weighing_node/   the MADSci node
-modules/materials.py       material names as registered in the Resource Manager
-resources/                 registration of the loaded materials in the Resource Manager
-experiments/               condition tables and the script that runs them
-workflows/                 contract and an example of the generated workflow
-analysis/                  export of the recorded dispense results to CSV
-locations.yaml             Location Manager seed for the real station (tube positions, Pen seats, nozzle offsets)
-locations.example.yaml     illustrative geometry for fake mode
-compose.yaml               MADSci managers + the node on the lab PC
-patches/                   hash-checked patch for a MADSci 0.8.0 Workcell busy loop
-```
+### One run, step by step
 
-## The node
+For each material in the condition table, in order of first appearance:
 
-`formulator_pen_weighing_node` holds every device of the station:
+1. `pickup_tool` — the gantry drives to the Pen's parking seat and the tool
+   changer locks it.
+2. For each row of that material: `move_to_position` places the nozzle over
+   the tube, then `dispense` tares the balance, opens the valve, strokes the
+   actuator by the calibrated amount for the target mass, closes the valve,
+   and reads the settled mass.
+3. `return_tool` — the Pen is parked back in its own seat.
 
-| Device | Reached through | Commands |
-|---|---|---|
-| `xyz_gantry` | SiLA 2 server on the cell-side Pi | move, home |
-| `tool_changer` | SiLA 2 server on the cell-side Pi | lock, unlock |
-| `formulator_pen` | SSH to the Pen-side Pi, one `run_job.py` call per command | dispense, draw-and-dispense, fill, prime, read weight, loaded materials |
+Then the gantry homes. Each dispense returns a record with the target, the
+measured mass, the actuator positions before and after, and timings, which
+`Orchestration/analysis/export_results.py` exports to CSV.
 
-| Action | What it does |
-|---|---|
-| `pickup_tool(tool)` | picks a Pen up from its own parking seat |
-| `move_to_position(position)` | places the mounted Pen's nozzle over a tube |
-| `dispense(material, target_g, position)` | fill-then-dispense: checks that the mounted Pen holds the material and that the material is registered, then tares, dispenses from what the Pen holds, and weighs on the Pen side |
-| `draw_and_dispense(material, target_g, position)` | draw-and-dispense: the same checks, then draws the target in, tares, dispenses all of it, and weighs |
-| `return_tool(tool)` | parks the mounted Pen in its own seat |
-| `home()` | homes the gantry (no Pen mounted) |
-| `fill(pen, volume_ml)`, `prime(pen, cycles)`, `read_weight(settle_time_s)` | Pen-side jobs for preparation and checks |
-| `set_mounted_tool(tool)` | records which Pen is mounted, for recovery after a restart |
+## Try it without hardware
 
-A dispense opens the valve, tares the balance, strokes the actuator from its
-current position by the fluid profile's calibrated amount, closes the valve,
-and reads the settled mass; the Pens are filled before a run. The fluid
-profiles are calibrated against weighed mass, so targets are in grams. The job
-record (target, command volume, actuator positions before and after, timings,
-measured mass) is the action result. A failed action stops where it stands.
-
-## Where each kind of information lives
-
-| Information | Kept in |
-|---|---|
-| How a material is dispensed: volume calibration (slope/offset), fill-then-dispense offset, stepped-motion limits, PWM | `FLUID_PROFILES` in `formulator_pen/dispense_system.py`, pushed to each Pico at connect |
-| Which material each Pen holds, and its fluid profile | `formulator_pen/pen_config.yaml` (Pen side) |
-| Which materials exist and that they are dispensed by a Formulator Pen | Resource Manager, one ResourceTemplate `material.<slug>` per material |
-| Tube positions, Pen parking seats, nozzle offsets, gantry clearance and speeds | Location Manager, seeded from `locations.yaml` (real station) or `locations.example.yaml` (fake mode) |
-| Pico W addresses and the balance serial link | `formulator_pen/pen_config.yaml` (Pen side) |
-| SiLA 2 server addresses; where the repository is on the Pen-side Pi | `modules/formulator_pen_weighing_node/node.settings.yaml` |
-| SSH login to the Pen-side Pi | `.env` (not in the repository) |
-| Workflow and step history; dispense records; logs | Workcell, Data, and Event Managers |
-
-Every site-specific value ships as a placeholder (`<...>`) with a comment
-saying what to enter.
-
-## Trying it without hardware
-
-The repository starts in fake mode: the node simulates the gantry, the tool
-changer, both Pens, and the balance on the lab PC. The fake Pens hold the two
-silicone oils of the reported validation run (Bluesilv12 in Pen 1, Siltech60
-in Pen 2) and start filled, and `.env.example` seeds the Location Manager with
-the illustrative geometry in `locations.example.yaml`. Requires Docker Desktop
-(the dashboard reaches the managers through `kubernetes.docker.internal`) and
-Python 3.10+.
+Requires Docker Desktop and Python 3.10+.
 
 ```bash
+git clone <this-repository-url> formulator_pen
+cd formulator_pen/Orchestration
 cp .env.example .env
 docker compose up -d
 docker compose run --rm resource_manager python -m madsci.resource_manager.migration_tool --db_url 'postgresql://madsci:madsci@postgres_resources:5432/resources'
@@ -106,87 +130,151 @@ python experiments/pen_weighing.py experiments/conditions/example.csv
 python analysis/export_results.py data/runs/<timestamp>
 ```
 
-The run picks up Pen 1, dispenses 1.0 g of Bluesilv12 into L4 twice, returns
-it, does the same with Pen 2 and 0.3 g of Siltech60 into L5, and homes the
-gantry. The fake balance reads the dispensed volume at 1 g/mL, so the masses
-are illustrative. Workflows, steps, and results are visible in the MADSci
-dashboard at http://localhost:8000.
+The simulated run picks up Pen 1, dispenses 1.0 g of Bluesilv12 into tube L4
+twice, parks it, does the same with Pen 2 and 0.3 g of Siltech60 into L5, and
+homes the gantry. Watch it in the MADSci dashboard at http://localhost:8000.
 
-## Setup for the real station
+## Build your own station
 
-### Pen-side Raspberry Pi 5
+The steps below take you from parts to a running station. Every site-specific
+value in the repository is a placeholder (`<...>`) with a comment saying what
+to enter.
 
-1. Clone this repository and install the Pen-side requirements:
-   `python3 -m pip install -r formulator_pen/requirements.txt`.
-2. Flash each Pico W: set `WIFI_SSID` / `WIFI_PASSWORD` (and optionally
-   `STATIC_IP`) in `formulator_pen/firmware/pico_api_step.py`, then
-   `mpremote cp formulator_pen/firmware/pico_api_step.py :main.py`.
-3. In `formulator_pen/pen_config.yaml`, set each Pen's Pico W address, the
-   material it holds and its fluid profile, and the balance serial device.
-4. Enable SSH login with a password for the user the node will use.
+### 1. Fabricate the mechanical parts
 
-Check it by hand:
+Print or machine the parts in [`CAD_Files/`](CAD_Files): one Formulator Pen
+per liquid, the tool changer, the parking rack (one seat per Pen), the tube
+holder for the balance, and the mounts for your CNC frame. Any CNC gantry with
+a GRBL controller and limit switches on all three axes can carry the tool
+changer.
+
+### 2. Assemble the electronics
+
+Build each Pen around a Raspberry Pi Pico W, an Actuonix L16 actuator with a
+DRV8871 driver, and an MG92B servo valve; connect the gantry and the tool
+changer (Pololu Tic T500) to the cell-side Raspberry Pi 5 and the balance to
+the Pen-side Raspberry Pi 5. Parts and pin assignments:
+[`Electronics/`](Electronics).
+
+### 3. Flash the Pens
+
+Put your WiFi credentials in `Programming/firmware/pico_api_step.py` and copy
+it to each Pico W as `main.py`:
 
 ```bash
+mpremote cp Programming/firmware/pico_api_step.py :main.py
+```
+
+Give each Pico a fixed address (static IP or DHCP reservation). Details:
+[`Programming/README.md`](Programming/README.md#firmware-pico-w).
+
+### 4. Set up the Pen-side Raspberry Pi 5
+
+Clone the repository, install `Programming/requirements.txt`, enter each Pen's
+Pico W address, its liquid, and fluid profile plus the balance's serial
+device in `Programming/formulator_pen/pen_config.yaml`, and enable SSH. Check
+it by hand:
+
+```bash
+cd Programming
 python3 -m formulator_pen.run_job loaded-materials
 python3 -m formulator_pen.run_job read-weight
 ```
 
-### Teaching
+### 5. Set up the cell-side Raspberry Pi 5
 
-`locations.yaml` ships without coordinates. Teach the tube positions `L4`-`L6`,
-both `tool_offset_formulator_pen_*` seats and nozzle offsets, and
-`gantry_params` on your station, and enter them with `taught_at`; a location
-without `taught_at` refuses motion.
+Run SiLA 2 servers for the gantry (`XyzGantry`, port 50053) and the tool
+changer (`ToolChanger`, port 50054). The commands the node expects are listed
+in [`Programming/README.md`](Programming/README.md#gantry-and-tool-changer-cell-side-raspberry-pi-5).
 
-### Lab PC
+### 6. Calibrate your liquids
 
-1. In `.env`, enter the Pen-side Pi's host, user, and password, and set
+Each liquid needs a fluid profile in `FLUID_PROFILES`
+(`Programming/formulator_pen/dispense_system.py`): a mass calibration
+(slope/offset), an offset for repeated dispenses, actuator speeds, and step
+limits for viscous liquids. Prime and fill the Pen, dispense a series of
+targets with `run_job dispense`, weigh them, and fit the calibration. Profiles
+for water, glycerin, and several silicone oils are included as starting
+points. Procedure:
+[`Programming/README.md`](Programming/README.md#adding-or-calibrating-a-liquid).
+
+### 7. Set up the lab PC and teach the positions
+
+In `Orchestration/`:
+
+1. Copy `.env.example` to `.env`, enter the Pen-side Pi's SSH login, and set
    `LOCATIONS_FILE=./locations.yaml`.
-2. In `modules/formulator_pen_weighing_node/node.settings.yaml`, set the SiLA 2
-   server addresses, the repository path on the Pen-side Pi, and
-   `interface_type: real`.
-3. Start the stack, initialize the Resource Manager database, and register
-   the materials the Pen side reports:
+2. In `modules/formulator_pen_weighing_node/node.settings.yaml`, enter the
+   cell-side Pi's address, the path of `Programming/` on the Pen-side Pi, and
+   set `interface_type: real`.
+3. Jog the gantry and teach the tube positions (`L4`-`L6`), each Pen's parking
+   seat and nozzle offset, and the gantry clearance and speeds into
+   `locations.yaml`, adding `taught_at` to each; an untaught location refuses
+   motion.
+4. Start the stack and register the liquids the Pens report (same commands as
+   in [Try it without hardware](#try-it-without-hardware), up to
+   `register_materials.py`). If you ran fake mode before, run
+   `docker compose down -v` first so the taught `locations.yaml` is loaded.
 
-```bash
-docker compose up -d
-docker compose run --rm resource_manager python -m madsci.resource_manager.migration_tool --db_url 'postgresql://madsci:madsci@postgres_resources:5432/resources'
-docker compose restart resource_manager formulator_pen_weighing_node
-pip install -e ".[lab]"
-python resources/register_materials.py
+Details: [`Orchestration/README.md`](Orchestration/README.md).
+
+### 8. Run an experiment
+
+Fill the Pens, write a condition table such as
+[`Orchestration/experiments/conditions/example.csv`](Orchestration/experiments/conditions/example.csv):
+
+```csv
+position,material,target_g
+L4,Bluesilv12,1.0
+L4,Bluesilv12,1.0
+L5,Siltech60,0.3
+L5,Siltech60,0.3
 ```
 
-The location file seeds an empty Location Manager database only. After a fake
-run, `docker compose down -v` clears the databases so that the next start
-seeds `locations.yaml`; later changes are made through the Location Manager.
-
-## Running
-
-Fill both Pens, then:
+and run it:
 
 ```bash
+cd Orchestration
 python experiments/pen_weighing.py experiments/conditions/example.csv
 python analysis/export_results.py data/runs/<timestamp>
 ```
 
-The example table is one trial of the reported run: two 1.0 g dispenses of
-Bluesilv12 into L4 and two 0.3 g dispenses of Siltech60 into L5, each tared
-before it is weighed. The table format and the generated steps are described
-in `workflows/pen_weighing.md`.
+The table never names a Pen: each material is dispensed by the Pen that holds
+it. A material that no Pen holds, or that two Pens hold, stops the run before
+anything moves. Table format and generated steps:
+[`Orchestration/workflows/pen_weighing.md`](Orchestration/workflows/pen_weighing.md).
+
+### If a step fails
+
+A failed step stops the workflow where it stands and leaves the Pen mounted.
+Inspect the failure in the dashboard, then recover with the node's actions:
+`return_tool` to park the Pen, or `set_mounted_tool` after a node restart so
+the node knows which Pen is on the gantry. A dispense that would need more
+liquid than the Pen holds fails as `INSUFFICIENT_VOLUME` without moving; refill
+with the `fill` action.
 
 ## Tests
 
-The tests run without Docker or hardware, against the fake gantry, tool
-changer, Pens, and balance:
+The software tests run against simulated devices, without Docker or hardware:
 
 ```bash
+cd Orchestration
 pip install -e ".[dev]"
 python -m pytest
 ```
 
+## Citation
+
+If you use this system or its designs, please cite the accompanying
+manuscript (details to be added on publication; see [`Manuscript/`](Manuscript)).
+
 ## License
 
-MIT; see `LICENSE`. `patches/madsci-0.8.0/workcell_engine.py` is a modified
-copy of a MADSci 0.8.0 file, distributed under the MADSci MIT license in
-`patches/madsci-0.8.0/LICENSE.MADSci`.
+MIT; see [`LICENSE`](LICENSE).
+`Orchestration/patches/madsci-0.8.0/workcell_engine.py` is a modified copy of a
+MADSci 0.8.0 file, distributed under the MADSci MIT license in
+`Orchestration/patches/madsci-0.8.0/LICENSE.MADSci`.
+
+## Acknowledgements
+
+Developed at the University of Toronto with the Acceleration Consortium.

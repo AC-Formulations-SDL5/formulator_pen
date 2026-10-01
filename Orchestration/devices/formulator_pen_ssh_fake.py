@@ -4,7 +4,7 @@ The fake Pens and balance live as long as this object, so a fill carries over
 to the next dispense exactly as it does on a real Pen. Each fake Pen starts
 filled with FAKE_INITIAL_FILL_ML, as the real Pens are filled before a run.
 
-The Pens hold the materials of formulator_pen/pen_config.yaml once it is filled
+The Pens hold the materials of Programming/formulator_pen/pen_config.yaml once it is filled
 in; until then they hold the materials of EXAMPLE_PEN_CONFIG, the two silicone
 oils of the reported validation run.
 """
@@ -28,7 +28,7 @@ EXAMPLE_PEN_CONFIG = {
 
 
 def fake_pen_config() -> dict:
-    """formulator_pen/pen_config.yaml if it is filled in, otherwise EXAMPLE_PEN_CONFIG."""
+    """Programming/formulator_pen/pen_config.yaml if it is filled in, otherwise EXAMPLE_PEN_CONFIG."""
     try:
         return run_job.load_config(run_job.DEFAULT_CONFIG)
     except ValueError:
@@ -44,7 +44,7 @@ class FormulatorPenSshFake:
         username: str,
         password: str,
         port: int = 22,
-        remote_dir: str = "formulator_pen_madsci",
+        remote_dir: str = "formulator_pen/Programming",
         python: str = "python3",
         command_timeout_s: float = 3600.0,
         pen_config: Optional[dict] = None,

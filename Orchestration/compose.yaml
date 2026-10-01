@@ -215,14 +215,16 @@ services:
     build: .
     env_file: .env
     command: python modules/formulator_pen_weighing_node/formulator_pen_weighing_node.py
+    # The whole repository is mounted: the fake Pen imports formulator_pen
+    # from ../Programming.
     volumes:
-      - .:/home/madsci/formulator_pen_madsci
-    working_dir: /home/madsci/formulator_pen_madsci
+      - ..:/home/madsci/formulator_pen_madsci
+    working_dir: /home/madsci/formulator_pen_madsci/Orchestration
     restart: unless-stopped
     ports:
       - "2000:2000"
     environment:
-      PYTHONPATH: /home/madsci/formulator_pen_madsci
+      PYTHONPATH: /home/madsci/formulator_pen_madsci/Orchestration:/home/madsci/formulator_pen_madsci/Programming
       NODE_NAME: formulator_pen_weighing_node
       NODE_URL: http://0.0.0.0:2000/
       EVENT_SERVER_URL: http://event_manager:8001/

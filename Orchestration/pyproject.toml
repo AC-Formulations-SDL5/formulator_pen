@@ -13,7 +13,7 @@ dependencies = [
 
 [project.optional-dependencies]
 # Lab PC: experiment script and result export (the node itself runs in Docker).
-# The Pen-side Raspberry Pi 5 needs only formulator_pen/requirements.txt.
+# The Pen-side Raspberry Pi 5 needs only Programming/requirements.txt.
 lab = ["madsci.experiment_application==0.8.0"]
 dev = ["pytest>=7.0", "pyserial", "pandas", "openpyxl"]
 
