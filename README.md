@@ -170,7 +170,7 @@ A dash (–) means the part comes with another item in the list.
 
 | Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
 |---|---|---|---|---|
-| [Laboratory balance](https://www.amazon.com/dp/B0F482HRDG) | UXILAII SCIENTIFIC / Amazon | ASIN B0F482HRDG | 2 | 183.80 |
+| [Laboratory balance](https://www.amazon.com/dp/B0F482HRDG) | UXILAII SCIENTIFIC / Amazon | ASIN B0F482HRDG | 2 | 360 |
 | [USB-to-RS-232 adapter](https://www.amazon.com/dp/B0759HSLP1) | Amazon marketplace | ASIN B0759HSLP1 | 2 | 9.10 |
 | [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
 | **Subtotal** | | | | **197.10** |
