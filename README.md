@@ -2,6 +2,10 @@
   <img src="media/logo.png" alt="University of Toronto | Acceleration Consortium" width="600">
 </p>
 
+<p align="center">
+  <img src="media/videos/Formulator_Pen_Demo.gif" alt="Formulator Pen station picking up a Pen, dispensing onto the balance, and parking the Pen (4x speed)" width="600">
+</p>
+
 <h1 align="center">Formulator Pen</h1>
 
 <p align="center">
@@ -134,6 +138,72 @@ The simulated run picks up Pen 1, dispenses 1.0 g of Bluesilv12 into tube L4
 twice, parks it, does the same with Pen 2 and 0.3 g of Siltech60 into L5, and
 homes the gantry. Watch it in the MADSci dashboard at http://localhost:8000.
 
+## Bill of materials
+
+Costs are in USD at the time of purchase. Amazon items are listed by ASIN.
+A dash (–) means the part comes with another item in the list.
+
+### Formulator Pen (per Pen)
+
+| Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
+|---|---|---|---|---|
+| [Raspberry Pi Pico microcontroller board](https://www.adafruit.com/product/4864) | Raspberry Pi / Adafruit | Pico RP2040; ID 4864 | 1 | 4.00 |
+| [DRV8871 DC motor driver breakout board](https://www.adafruit.com/product/3190) | Adafruit | DRV8871; ID 3190 | 1 | 7.50 |
+| [Linear actuator with position feedback; 50 mm stroke, 256:1 gearing, 12 V](https://ca.robotshop.com/products/actuonix-p16-linear-actuator-50mm-2561-12v-w-potentiometer-feedback) | Actuonix | P16-50-256-12-P | 1 | 90.00 |
+| [High-torque, metal-gear micro servo (MG92B)](https://www.adafruit.com/product/2307) | TowerPro / Adafruit | MG92B; ID 2307 | 1 | 12.00 |
+| [12-pin magnetic pogo-pin connector](https://www.amazon.com/dp/B0D1KRQCVC) | Amazon marketplace | ASIN B0D1KRQCVC | 1 pair | 7.00 |
+| [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
+| [Masterflex three-way large-bore stopcock with male Luer lock](https://avantorsciences.com/ca/en/product/NA5135088/masterflex-large-bore-stopcock-fittings-male-luer-lock-avantor) | VWR | MFLX30600-23 | 10 | 5.00 |
+| [BD Luer-Lok syringe, 10 mL (consumable; box of 200)](https://www.bd.com/en-ca/products-and-solutions/products/product-page.302995) | BD / UofT Medstore | REF 302995 | 1 | 0.25 |
+| [Tygon E-3603 tubing, 1/8" ID x 3/16" OD; 50 ft](https://www.coleparmer.com/i/tygon-e-3603-tubing-1-8-id-x-3-16-od-50-ft/5010625) | Cole-Parmer / Saint-Gobain | ACF00006 | 1 | 49.00 |
+| **Subtotal** | | | | **178.95** |
+
+### Gantry
+
+| Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
+|---|---|---|---|---|
+| [CNC positioning platform (USB cable included)](https://www.sainsmart.com/products/genmitsu-4040-pro-semi-assembly-desktop-cnc-machine-for-carving-and-cutting) | SainSmart / Genmitsu | 4040-PRO; SKU 101-60-4040PRO-AJ | 1 | 479.00 |
+| [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.21 |
+| **Subtotal** | | | | **483.21** |
+
+### Balance
+
+| Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
+|---|---|---|---|---|
+| [Laboratory balance](https://www.amazon.com/dp/B0F482HRDG) | UXILAII SCIENTIFIC / Amazon | ASIN B0F482HRDG | 2 | 183.80 |
+| [USB-to-RS-232 adapter](https://www.amazon.com/dp/B0759HSLP1) | Amazon marketplace | ASIN B0759HSLP1 | 2 | 9.10 |
+| [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
+| **Subtotal** | | | | **197.10** |
+
+### Tool changer
+
+| Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
+|---|---|---|---|---|
+| [Jubilee cable-driven toolchanger hardware-only kit V2.1](https://lukeslabonline.com/products/jubilee-toolchanger-hardware-only-kit) | Luke's Laboratory | Jubilee Toolchanger Kit V2.1 | 1 | 105.00 |
+| [Tic T500 stepper motor controller](https://www.pololu.com/product/3134) | Pololu | Tic T500; item #3134 | 1 | |
+| [USB A-to-Micro-B cable for the Tic T500](https://www.amazon.com/dp/B0719H12WD) | Amazon marketplace | ASIN B0719H12WD | 1 | 3.40 |
+| [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
+| [Mating half of the 12-pin magnetic pogo-pin connector](https://www.amazon.com/dp/B0D1KRQCVC) | Amazon marketplace | ASIN B0D1KRQCVC (pair listed under the Pen) | 1 | – |
+| [M5 x 60 mm dowel pin](https://lukeslabonline.com/products/jubilee-toolchanger-hardware-only-kit) | Luke's Laboratory | Included in the Jubilee Toolchanger Kit V2.1 | 4 | – |
+| [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
+| **Subtotal** (excluding the Tic T500) | | | | **116.80** |
+
+### Station setup
+
+| Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
+|---|---|---|---|---|
+| [Raspberry Pi 5 starter kit for orchestration; 4 GB RAM](https://www.canakit.com/canakit-raspberry-pi-5-4gb-starter-kit-turbine-black.html) | CanaKit | Turbine Black; PI5-4GB-STR128-C4-BLK | 1 | 205.00 |
+| [T-slotted framing rail, 20 mm x 20 mm x 625 mm](https://www.mcmaster.com/6575N401) | McMaster-Carr | 6575N401 | 5 | 65.60 |
+| [T-slotted framing rail, 20 mm x 20 mm x 610 mm](https://www.mcmaster.com/6575N401) | McMaster-Carr | 6575N401 | 4 | 51.20 |
+| [T-slotted framing rail, 20 mm x 20 mm x 675 mm](https://www.mcmaster.com/6575N401) | McMaster-Carr | 6575N401 | 4 | 56.70 |
+| [T-slotted framing corner bracket](https://www.mcmaster.com/5537T441) | McMaster-Carr | 5537T441 | 24 | 223.70 |
+| [AC-to-DC switching power supply, 24 V output](https://www.digikey.com/en/products/detail/mornsun-america-llc/LM350-10B24/13168175) | Digi-Key | LM350-10B24 | 1 | 23.00 |
+| [DC-DC step-down converter, 24 V to 12 V](https://www.amazon.com/dp/B0D2TS7CBN) | Amazon marketplace | ASIN B0D2TS7CBN | 1 | 3.50 |
+| [AWG 24 hookup wire for signal / control wiring](https://www.amazon.com/dp/B09Y82NFV3) | Amazon marketplace | ASIN B09Y82NFV3 | 1 | 16.00 |
+| [AWG 22 hookup wire for power wiring](https://www.amazon.com/dp/B0CM2Y7V1Z) | Amazon marketplace | ASIN B0CM2Y7V1Z | 1 | 17.00 |
+| [Lever wire connectors for wire distribution](https://www.amazon.com/dp/B0G6D4GLCY) | Amazon marketplace | ASIN B0G6D4GLCY | 1 | 17.00 |
+| **Subtotal** | | | | **678.70** |
+
 ## Build your own station
 
 The steps below take you from parts to a running station. Every site-specific
@@ -153,7 +223,8 @@ changer.
 Build each Pen around a Raspberry Pi Pico W, an Actuonix L16 actuator with a
 DRV8871 driver, and an MG92B servo valve; connect the gantry and the tool
 changer (Pololu Tic T500) to the cell-side Raspberry Pi 5 and the balance to
-the Pen-side Raspberry Pi 5. Parts and pin assignments:
+the Pen-side Raspberry Pi 5. Parts are listed in the
+[bill of materials](#bill-of-materials); pin assignments are in
 [`Electronics/`](Electronics).
 
 ### 3. Flash the Pens
