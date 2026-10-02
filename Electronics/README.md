@@ -42,5 +42,5 @@ needs its own driver with the same methods.
 ## To add here
 
 - Wiring diagram / schematic of the Pen electronics and the tool-changer power path
-- Full bill of materials with suppliers, part numbers, and quantities
+- Full bill of materials: see [Bill of materials](../README.md#bill-of-materials) in the main README
 - Power supply ratings for the actuator and servo
