@@ -3,6 +3,8 @@
 Data and code behind *Formulator-Pen: A Modular Dispensing Mechanism and Automated Robotic
 Platform for High-Viscosity Liquid Handling in Self-Driving Laboratories*
 (M. M. Rastegardoost, R. Durao, H. Ohsaka, F. Le Devedec; submitted to *Digital Discovery*).
+The version of this repository that accompanies the manuscript is release v1.0.0, archived on
+Zenodo: https://doi.org/10.5281/zenodo.23930607.
 
 ```
 Manuscript/

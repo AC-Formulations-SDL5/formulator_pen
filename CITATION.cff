@@ -3,6 +3,9 @@ message: "If you use this software, hardware design or data, please cite it as b
 title: "Formulator Pen: open-source gravimetric dispensing of high-viscosity liquids on a tool-changing gantry"
 type: software
 license: MIT
+version: v1.0.0
+date-released: "2026-11-03"
+doi: 10.5281/zenodo.23930607
 repository-code: "https://github.com/AC-Formulations-SDL5/formulator_pen"
 authors:
   - family-names: Rastegardoost
@@ -18,6 +21,13 @@ authors:
     given-names: Frantz
     affiliation: "Acceleration Consortium, University of Toronto"
     email: frantz.ledevedec@utoronto.ca
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23930607
+    description: "Archived release v1.0.0 (accompanies the manuscript)"
+  - type: doi
+    value: 10.5281/zenodo.23930606
+    description: "All versions (resolves to the latest release)"
 keywords:
   - self-driving laboratory
   - liquid handling

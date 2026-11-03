@@ -9,6 +9,10 @@
 <h1 align="center">Formulator Pen</h1>
 
 <p align="center">
+  <a href="https://doi.org/10.5281/zenodo.23930606"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23930606.svg" alt="DOI"></a>
+</p>
+
+<p align="center">
   <b>An open-source gravimetric liquid handler built from a CNC gantry and swappable "Formulator Pen" dispensing tools</b><br>
   orchestrated by <a href="https://github.com/AD-SDL/MADSci">MADSci</a>
 </p>
@@ -350,7 +354,15 @@ python si_figures.py ../data/formulatorpen.csv ../figures/inputs ../figures/supp
 
 If you use this system, its designs or its data, please cite the accompanying manuscript and
 this repository. Citation metadata are in [`CITATION.cff`](CITATION.cff) (GitHub shows a
-"Cite this repository" button); each tagged release is archived on Zenodo with a DOI.
+"Cite this repository" button).
+
+> Rastegardoost, M. M., Durao, R., Ohsaka, H., & Le Devedec, F. (2026). *Formulator Pen:
+> open-source gravimetric dispensing of high-viscosity liquids on a tool-changing gantry*
+> (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.23930607
+
+Release v1.0.0, the version that accompanies the manuscript, has the DOI
+[10.5281/zenodo.23930607](https://doi.org/10.5281/zenodo.23930607); the DOI
+[10.5281/zenodo.23930606](https://doi.org/10.5281/zenodo.23930606) always resolves to the latest release.
 
 ## License
 
