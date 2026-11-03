@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, hardware design or data, please cite it as below."
+title: "Formulator Pen: open-source gravimetric dispensing of high-viscosity liquids on a tool-changing gantry"
+type: software
+license: MIT
+repository-code: "https://github.com/AC-Formulations-SDL5/formulator_pen"
+authors:
+  - family-names: Rastegardoost
+    given-names: Mohammad M.
+    affiliation: "Acceleration Consortium, University of Toronto"
+  - family-names: Durao
+    given-names: Renato
+    affiliation: "Department of Mechanical and Mechatronics Engineering, University of Waterloo"
+  - family-names: Ohsaka
+    given-names: Hiroki
+    affiliation: "SEKISUI CHEMICAL CO., LTD."
+  - family-names: Le Devedec
+    given-names: Frantz
+    affiliation: "Acceleration Consortium, University of Toronto"
+    email: frantz.ledevedec@utoronto.ca
+keywords:
+  - self-driving laboratory
+  - liquid handling
+  - high-viscosity dispensing
+  - tool changer
+  - open hardware

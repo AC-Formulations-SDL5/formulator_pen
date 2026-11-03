@@ -1,28 +1,29 @@
 # CAD Files
 
-Mechanical design files for every custom part of the station. Each part is
-provided as a neutral exchange format (STEP) for editing in any CAD package
-and as STL for 3D printing; native source files are included where available.
+Printable parts of the Formulator Pen and the assembled Pen.
 
 ```
 CAD_Files/
-  Formulator_Pen/      Pen body, syringe/reservoir holder, actuator and valve mounts, nozzle
-  Tool_Changer/        gantry-side tool-changer head and Pen-side coupling (magnetic power connector)
-  Parking_Rack/        rack that holds the parked Pens, one seat per Pen
-  Balance_Stage/       tube holder on the balance (positions L4-L6)
-  Gantry_Mounts/       brackets that fix the tool changer, rack, and balance to the CNC frame
-  Assembly/            full-station assembly
+  Formulator_Pen/   STL files of every custom Pen part
+  Assembly/         Formulator_Pen_Assembly.3mf: the assembled Pen as a print project
 ```
 
-> The design files are being added. Until they are, the folders above describe
-> where each part belongs.
+| File | Part |
+|---|---|
+| `Main_Body.stl` | Pen body that carries the syringe, actuator, valve and electronics |
+| `Syringe_Holder.stl` | clamp for the 10 mL BD Luer-Lok syringe |
+| `Reservoir_Holder.stl` | holder for the 50 mL on-board reservoir syringe |
+| `Actuator_Rail_Holder_A.stl`, `Actuator_Rail_Holder_B.stl` | two halves of the rail that guides the Actuonix P16 actuator |
+| `Actuator_Lid.stl` | cover of the actuator compartment |
+| `Valve_Mount.stl` | mount of the MG92B servo on the Pen body |
+| `Valve_Adapter.stl` | coupling between the servo horn and the three-way stopcock |
+| `Horizontal_Wing.stl` | wing that registers the Pen in the tool changer and the parking seat |
+| `Magnetic_Connector_Cover_12pin.stl` | cover of the Pen-side 12-pin magnetic power connector |
 
-## Conventions
+All parts were printed in PETG (Bambu Lab PETG-HF). Dimensions are in millimetres.
 
-- One subfolder per assembly; file names `<part>_v<version>.<ext>`.
-- Units: millimetres.
-- For each printed part, note the material, layer height, infill, and
-  orientation in a `print_settings.md` next to the STL.
-- Positions taught on the station (tube positions, Pen seats, nozzle offsets)
-  are not fixed by the CAD; they are entered in
-  `Orchestration/locations.yaml` after assembly (see the top-level README).
+The tool changer is the Jubilee cable-driven tool changer (hardware kit V2.1, Luke's
+Laboratory); its parts and assembly follow the Jubilee project documentation. The gantry is a
+Genmitsu 4040-PRO CNC. Positions taught on the station (tube positions, Pen seats, nozzle
+offsets) are not fixed by the CAD; they are entered in `Orchestration/locations.yaml` after
+assembly (see the top-level README).

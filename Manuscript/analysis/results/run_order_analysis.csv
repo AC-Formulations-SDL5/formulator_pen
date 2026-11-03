@@ -1,0 +1,77 @@
+strategy,data_type,viscosity_cP,target_g,n,first_minus_rest_g,drift_g_per_run,drift_p
+Fill-and-Dispense,Test,1,0.5,10,0.00344,2e-05,0.97958
+Fill-and-Dispense,Test,1,1.0,10,0.00078,-0.00045,0.43406
+Fill-and-Dispense,Test,1,3.0,10,-0.01022,0.0001,0.91289
+Fill-and-Dispense,Test,1,6.0,10,-0.01322,0.00381,0.03339
+Fill-and-Dispense,Test,1000,0.5,10,-0.01022,0.00039,0.58285
+Fill-and-Dispense,Test,1000,1.0,10,0.00056,0.00032,0.72007
+Fill-and-Dispense,Test,1000,4.0,10,-0.003,-0.00038,0.70483
+Fill-and-Dispense,Test,1000,7.0,10,0.005,-0.00073,0.3681
+Fill-and-Dispense,Test,5765,0.5,10,-0.00133,-0.00028,0.667
+Fill-and-Dispense,Test,5765,1.0,10,0.006,0.00085,0.37777
+Fill-and-Dispense,Test,5765,3.0,10,0.05778,0.00016,0.96254
+Fill-and-Dispense,Test,5765,6.0,10,-0.00211,0.00053,0.6319
+Fill-and-Dispense,Test,14570,0.5,10,-0.00044,0.00042,0.83552
+Fill-and-Dispense,Test,14570,1.0,10,0.01278,-0.00024,0.86003
+Fill-and-Dispense,Test,14570,3.0,10,0.00667,-0.0009,0.28673
+Fill-and-Dispense,Test,14570,5.0,10,0.00489,0.00039,0.78039
+Fill-and-Dispense,Test (2x),14570,0.5,10,0.00767,0.00028,0.76508
+Fill-and-Dispense,Test (2x),14570,1.0,10,-0.002,-0.00029,0.82277
+Fill-and-Dispense,Test (2x),14570,3.0,10,-0.00967,-0.00031,0.71676
+Fill-and-Dispense,Test (2x),14570,5.0,10,0.011,-0.00408,0.02618
+Fill-and-Dispense,Test (3x),14570,0.5,10,0.00856,0.0015,0.21081
+Fill-and-Dispense,Test (3x),14570,1.0,10,0.00222,0.00139,0.06542
+Fill-and-Dispense,Test (3x),14570,3.0,10,0.01867,-0.00381,0.11239
+Fill-and-Dispense,Test (3x),14570,5.0,10,0.02478,-0.00404,0.00449
+Fill-and-Dispense,Test,31870,0.5,10,-0.00056,0.00016,0.89854
+Fill-and-Dispense,Test,31870,1.0,10,0.00378,-0.00126,0.2966
+Fill-and-Dispense,Test,31870,3.0,10,0.00822,-0.00099,0.30995
+Fill-and-Dispense,Test,31870,5.0,10,-0.00422,0.0012,0.33186
+Remote-Reservoir,Test,1,0.5,7,-0.00633,0.00164,0.33624
+Remote-Reservoir,Test,1,1.0,7,-0.0105,0.00064,0.7427
+Remote-Reservoir,Test,1,3.0,7,-0.01317,0.00043,0.85795
+Remote-Reservoir,Test,1,5.0,7,-0.01617,-0.00079,0.78702
+Remote-Reservoir,Test,1000,0.5,8,-0.01414,0.00073,0.52069
+Remote-Reservoir,Test,1000,1.0,8,0.00857,-0.00245,0.36027
+Remote-Reservoir,Test,1000,3.0,8,0.01329,-0.00118,0.37976
+Remote-Reservoir,Test,1000,5.0,8,-0.00471,0.00089,0.64206
+Remote-Reservoir,Test,5765,0.5,7,-0.00433,-0.00046,0.60176
+Remote-Reservoir,Test,5765,1.0,7,-0.01833,0.00318,0.04155
+Remote-Reservoir,Test,5765,3.0,7,-0.00783,-0.00039,0.83988
+Remote-Reservoir,Test,5765,5.0,7,-0.0125,-0.00036,0.86935
+Remote-Reservoir,Test,14570,0.5,8,0.00829,-0.0019,0.07473
+Remote-Reservoir,Test,14570,1.0,8,0.01271,-0.00115,0.41621
+Remote-Reservoir,Test,14570,3.0,8,0.005,-0.00173,0.1278
+Remote-Reservoir,Test,14570,5.0,8,0.02257,0.00155,0.52575
+Remote-Reservoir,Test,37020,0.5,7,-0.017,0.00061,0.75162
+Remote-Reservoir,Test,37020,1.0,7,0.00417,-0.00068,0.77071
+Remote-Reservoir,Test,37020,3.0,7,0.02867,-0.00425,0.27649
+Remote-Reservoir,Test,37020,5.0,7,0.01617,-0.00229,0.31564
+On-Board Reservoir,Test,14570,0.5,7,0.011,-0.00207,0.29509
+On-Board Reservoir,Test,14570,1.0,7,0.00033,0.00064,0.77299
+On-Board Reservoir,Test,14570,3.0,7,0.02983,-0.00286,0.26423
+On-Board Reservoir,Test,14570,5.0,7,0.01217,0.00025,0.87234
+On-Board Reservoir,Test,37020,0.5,8,0.00557,-0.00137,0.55577
+On-Board Reservoir,Test,37020,1.0,8,0.00386,-0.00037,0.74263
+On-Board Reservoir,Test,37020,3.0,9,0.02075,-0.00443,0.01223
+On-Board Reservoir,Test,37020,5.0,8,-0.00457,-0.0004,0.83279
+On-Board Reservoir,Test,69080,0.5,8,-0.00514,-0.00124,0.41656
+On-Board Reservoir,Test,69080,1.0,7,0.01017,-0.00111,0.22388
+On-Board Reservoir,Test,69080,3.0,8,0.00914,-0.00105,0.56389
+On-Board Reservoir,Test,69080,5.0,7,0.00533,0.00161,0.52399
+Pressurized On-Board,Test,14570,0.5,10,0.00867,-0.00095,0.27406
+Pressurized On-Board,Test,14570,1.0,10,-0.00389,0.00095,0.19436
+Pressurized On-Board,Test,14570,3.0,8,0.00229,0.00126,0.51508
+Pressurized On-Board,Test,14570,5.0,9,-0.00938,-0.00062,0.70749
+Pressurized On-Board,Test_tighter,14570,0.5,10,0.00433,-0.00014,0.85869
+Pressurized On-Board,Test_tighter,14570,0.8,10,0.00078,0.00036,0.6146
+Pressurized On-Board,Test_tighter,14570,1.2,10,-0.00278,-0.00045,0.33476
+Pressurized On-Board,Test_tighter,14570,1.5,8,0.00257,0.00217,0.2261
+Pressurized On-Board,Test,37020,0.5,8,0.00457,-0.0019,0.25288
+Pressurized On-Board,Test,37020,1.0,8,-0.015,0.00265,0.062
+Pressurized On-Board,Test,37020,3.0,8,-0.00129,-6e-05,0.96458
+Pressurized On-Board,Test,37020,5.0,8,-0.00414,-0.00199,0.27228
+Pressurized On-Board,Test,69080,0.5,7,0.007,-0.00243,0.01799
+Pressurized On-Board,Test,69080,1.0,7,0.00267,-4e-05,0.98415
+Pressurized On-Board,Test,69080,3.0,7,-0.01767,0.00221,0.28429
+Pressurized On-Board,Test,69080,5.0,7,-0.00383,0.00157,0.41215

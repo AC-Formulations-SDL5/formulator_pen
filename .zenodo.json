@@ -1,0 +1,13 @@
+{
+  "title": "Formulator Pen: open-source gravimetric dispensing of high-viscosity liquids on a tool-changing gantry",
+  "upload_type": "software",
+  "description": "Hardware design, firmware, orchestration software, raw gravimetric data and analysis code of the Formulator-Pen, a syringe-based positive-displacement dispenser for viscous liquids (1-69,080 cP) deployed as exchangeable, material-specific tools on a Cartesian gantry for self-driving laboratories.",
+  "creators": [
+    {"name": "Rastegardoost, Mohammad M.", "affiliation": "Acceleration Consortium, University of Toronto"},
+    {"name": "Durao, Renato", "affiliation": "University of Waterloo"},
+    {"name": "Ohsaka, Hiroki", "affiliation": "SEKISUI CHEMICAL CO., LTD."},
+    {"name": "Le Devedec, Frantz", "affiliation": "Acceleration Consortium, University of Toronto"}
+  ],
+  "license": "MIT",
+  "keywords": ["self-driving laboratory", "liquid handling", "high-viscosity dispensing", "tool changer", "open hardware"]
+}

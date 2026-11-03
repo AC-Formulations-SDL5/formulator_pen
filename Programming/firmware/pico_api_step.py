@@ -1,6 +1,6 @@
 """====================================================
 Formulator Dispenser Driver API (Pico W MicroPython)
-Pico W + MG92B Valve + Actuonix L16 + DRV8871
+Pico W + MG92B Valve + Actuonix P16 + DRV8871
 ====================================================
 
 Driver-style API for the Formulator Pen (syringe dispenser) with these main classes:
@@ -220,7 +220,7 @@ class Valve:
 class Actuator:
     """Linear actuator with ADC position feedback and duty cycle protection.
 
-    Hardware: Actuonix L16 + DRV8871 motor driver
+    Hardware: Actuonix P16 + DRV8871 motor driver
     
     All hardware and motion parameters are configured via module-level constants at the top of the file:
     MOTOR_IN1_PIN, MOTOR_IN2_PIN, MOTOR_FEEDBACK_PIN, MOTOR_PWM_FREQ, MOTOR_STROKE_MM,

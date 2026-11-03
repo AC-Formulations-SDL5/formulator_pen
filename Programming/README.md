@@ -21,7 +21,7 @@ requirements.txt           Pen-side Python requirements
 ## Firmware (Pico W)
 
 Each Pen carries a Raspberry Pi Pico W that drives an MG92B servo three-way
-valve (`UP` intake, `CLOSED`, `THRU` dispense) and an Actuonix L16 linear
+valve (`UP` intake, `CLOSED`, `THRU` dispense) and an Actuonix P16 linear
 actuator through a DRV8871 motor driver, reading the actuator's position
 feedback on an ADC pin. Pin assignments are at the top of
 `firmware/pico_api_step.py` and in [`../Electronics`](../Electronics).

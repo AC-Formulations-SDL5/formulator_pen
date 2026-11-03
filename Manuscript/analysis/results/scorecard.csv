@@ -1,0 +1,5 @@
+strategy,accuracy_abs_1_minus_a_over_rho,precision_mean_cv_pct,throughput_5g_min,viscosity_range_cP,operational_autonomy,mechanical_simplicity,accuracy_abs_1_minus_a_over_rho_score,precision_mean_cv_pct_score,throughput_5g_min_score,viscosity_range_cP_score,operational_autonomy_score,mechanical_simplicity_score
+Fill-and-Dispense,0.0097,1.2483,7.2183,31870.0,0.5,1.0,1.0,0.0,0.5013,0.0,0.0,1.0
+Remote-Reservoir,0.0587,0.6971,11.54,37020.0,1.0,0.3,0.0,0.962,0.0,0.1384,1.0,0.0
+On-Board Reservoir,0.0423,0.8891,5.9274,69080.0,0.5,0.65,0.3358,0.6269,0.651,1.0,0.0,0.5
+Pressurized On-Board,0.0227,0.6753,2.9186,69080.0,0.5,0.45,0.7365,1.0,1.0,1.0,0.0,0.2143

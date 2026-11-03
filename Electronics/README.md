@@ -9,7 +9,7 @@ differently.
 | Part | Role |
 |---|---|
 | Raspberry Pi Pico W | runs the firmware, receives commands over WiFi |
-| Actuonix L16 linear actuator (50 mm stroke, with position feedback) | moves the plunger |
+| Actuonix P16 linear actuator (P16-50-256-12-P: 50 mm stroke, 256:1, 12 V, potentiometer feedback) | moves the plunger |
 | DRV8871 motor driver | drives the actuator |
 | MG92B servo | turns the three-way valve (`UP` intake, `CLOSED`, `THRU` dispense) |
 | Magnetic connector (Pen side) | receives power from the tool changer when the Pen is mounted |
@@ -18,7 +18,7 @@ differently.
 |---|---|
 | GP4 | DRV8871 IN1 |
 | GP5 | DRV8871 IN2 |
-| GP27 (ADC1) | L16 position feedback (wiper) |
+| GP27 (ADC1) | P16 position feedback (wiper) |
 | GP3 | MG92B signal |
 
 The tool changer's magnetic connector carries power only; all Pen commands
@@ -39,8 +39,4 @@ The balance driver (`Programming/formulator_pen/balance_api.py`) sends `R`
 (read), `T` (tare), and `Z` (zero); a balance with a different command set
 needs its own driver with the same methods.
 
-## To add here
-
-- Wiring diagram / schematic of the Pen electronics and the tool-changer power path
-- Full bill of materials: see [Bill of materials](../README.md#bill-of-materials) in the main README
-- Power supply ratings for the actuator and servo
+The full parts list with costs is in the [bill of materials](../README.md#bill-of-materials) of the main README.

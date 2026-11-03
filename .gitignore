@@ -11,3 +11,6 @@ __pycache__/
 Orchestration/data/
 Orchestration/.madsci/
 Programming/data/
+
+# Notebook checkpoints
+.ipynb_checkpoints/

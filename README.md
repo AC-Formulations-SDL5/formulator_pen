@@ -47,20 +47,16 @@ Highlights:
 - **Runs without hardware.** A fake mode simulates every device, so the full
   software stack can be tried on any computer with Docker.
 
-<!-- Add a photo or video of the station here, e.g.
-<p align="center"><img src="media/images/station.jpg" width="700"></p>
--->
-
 ## Repository layout
 
 | Folder | Contents |
 |---|---|
-| [`CAD_Files/`](CAD_Files) | mechanical design: Formulator Pen, tool changer, parking rack, balance stage, gantry mounts |
+| [`CAD_Files/`](CAD_Files) | printable parts of the Formulator Pen and the assembled Pen |
 | [`Electronics/`](Electronics) | parts list and wiring of the Pens and the station |
 | [`Programming/`](Programming) | code that runs on the hardware: Pico W firmware and the Pen-side Raspberry Pi package |
 | [`Orchestration/`](Orchestration) | MADSci stack on the lab PC: node, experiment script, workflows, location seeds, result export, tests |
-| [`media/`](media) | logo, photos, and videos |
-| [`Manuscript/`](Manuscript) | the manuscript, its figures, and data |
+| [`media/`](media) | logo and the demo video |
+| [`Manuscript/`](Manuscript) | data, analysis code and figures of the accompanying manuscript |
 
 Each folder has its own README with the details for that part.
 
@@ -147,7 +143,7 @@ A dash (–) means the part comes with another item in the list.
 
 | Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
 |---|---|---|---|---|
-| [Raspberry Pi Pico microcontroller board](https://www.adafruit.com/product/4864) | Raspberry Pi / Adafruit | Pico RP2040; ID 4864 | 1 | 4.00 |
+| [Raspberry Pi Pico W microcontroller board (WiFi)](https://www.adafruit.com/product/5526) | Raspberry Pi / Adafruit | Pico W RP2040; ID 5526 | 1 | 6.00 |
 | [DRV8871 DC motor driver breakout board](https://www.adafruit.com/product/3190) | Adafruit | DRV8871; ID 3190 | 1 | 7.50 |
 | [Linear actuator with position feedback; 50 mm stroke, 256:1 gearing, 12 V](https://ca.robotshop.com/products/actuonix-p16-linear-actuator-50mm-2561-12v-w-potentiometer-feedback) | Actuonix | P16-50-256-12-P | 1 | 90.00 |
 | [High-torque, metal-gear micro servo (MG92B)](https://www.adafruit.com/product/2307) | TowerPro / Adafruit | MG92B; ID 2307 | 1 | 12.00 |
@@ -156,7 +152,7 @@ A dash (–) means the part comes with another item in the list.
 | [Masterflex three-way large-bore stopcock with male Luer lock](https://avantorsciences.com/ca/en/product/NA5135088/masterflex-large-bore-stopcock-fittings-male-luer-lock-avantor) | VWR | MFLX30600-23 | 10 | 5.00 |
 | [BD Luer-Lok syringe, 10 mL (consumable; box of 200)](https://www.bd.com/en-ca/products-and-solutions/products/product-page.302995) | BD / UofT Medstore | REF 302995 | 1 | 0.25 |
 | [Tygon E-3603 tubing, 1/8" ID x 3/16" OD; 50 ft](https://www.coleparmer.com/i/tygon-e-3603-tubing-1-8-id-x-3-16-od-50-ft/5010625) | Cole-Parmer / Saint-Gobain | ACF00006 | 1 | 49.00 |
-| **Subtotal** | | | | **178.95** |
+| **Subtotal** | | | | **180.95** |
 
 ### Gantry
 
@@ -173,20 +169,20 @@ A dash (–) means the part comes with another item in the list.
 | [Laboratory balance](https://www.amazon.com/dp/B0F482HRDG) | UXILAII SCIENTIFIC / Amazon | ASIN B0F482HRDG | 2 | 360 |
 | [USB-to-RS-232 adapter](https://www.amazon.com/dp/B0759HSLP1) | Amazon marketplace | ASIN B0759HSLP1 | 2 | 9.10 |
 | [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
-| **Subtotal** | | | | **197.10** |
+| **Subtotal** | | | | **373.30** |
 
 ### Tool changer
 
 | Component | Manufacturer / supplier | Part number | Qty | Cost (USD) |
 |---|---|---|---|---|
 | [Jubilee cable-driven toolchanger hardware-only kit V2.1](https://lukeslabonline.com/products/jubilee-toolchanger-hardware-only-kit) | Luke's Laboratory | Jubilee Toolchanger Kit V2.1 | 1 | 105.00 |
-| [Tic T500 stepper motor controller](https://www.pololu.com/product/3134) | Pololu | Tic T500; item #3134 | 1 | |
+| [Tic T500 stepper motor controller](https://www.pololu.com/product/3134) | Pololu | Tic T500; item #3134 | 1 | 34.95 |
 | [USB A-to-Micro-B cable for the Tic T500](https://www.amazon.com/dp/B0719H12WD) | Amazon marketplace | ASIN B0719H12WD | 1 | 3.40 |
 | [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
 | [Mating half of the 12-pin magnetic pogo-pin connector](https://www.amazon.com/dp/B0D1KRQCVC) | Amazon marketplace | ASIN B0D1KRQCVC (pair listed under the Pen) | 1 | – |
 | [M5 x 60 mm dowel pin](https://lukeslabonline.com/products/jubilee-toolchanger-hardware-only-kit) | Luke's Laboratory | Included in the Jubilee Toolchanger Kit V2.1 | 4 | – |
 | [PETG filament for custom 3D-printed parts](https://us.store.bambulab.com/products/petg-hf) | Bambu Lab | PETG-HF; 1 kg spool | 200 g | 4.20 |
-| **Subtotal** (excluding the Tic T500) | | | | **116.80** |
+| **Subtotal** | | | | **151.75** |
 
 ### Station setup
 
@@ -204,6 +200,8 @@ A dash (–) means the part comes with another item in the list.
 | [Lever wire connectors for wire distribution](https://www.amazon.com/dp/B0G6D4GLCY) | Amazon marketplace | ASIN B0G6D4GLCY | 1 | 17.00 |
 | **Subtotal** | | | | **678.70** |
 
+**Complete single-Pen station: US$1,867.91.** Each additional Pen adds US$180.95.
+
 ## Build your own station
 
 The steps below take you from parts to a running station. Every site-specific
@@ -220,7 +218,7 @@ changer.
 
 ### 2. Assemble the electronics
 
-Build each Pen around a Raspberry Pi Pico W, an Actuonix L16 actuator with a
+Build each Pen around a Raspberry Pi Pico W, an Actuonix P16 actuator with a
 DRV8871 driver, and an MG92B servo valve; connect the gantry and the tool
 changer (Pololu Tic T500) to the cell-side Raspberry Pi 5 and the balance to
 the Pen-side Raspberry Pi 5. Parts are listed in the
@@ -334,10 +332,25 @@ pip install -e ".[dev]"
 python -m pytest
 ```
 
+## Reproduce the manuscript
+
+[`Manuscript/`](Manuscript) holds the complete gravimetric dataset (1,586 weighed
+dispenses), the tool-changing validation run, and the code that regenerates every
+reported number and every figure of the paper:
+
+```bash
+cd Manuscript/analysis
+pip install -r requirements.txt
+python statistics.py ../data results              # tables and the numbers quoted in the text
+jupyter nbconvert --to notebook --execute --inplace main_figures.ipynb   # Figures 2-7
+python si_figures.py ../data/formulatorpen.csv ../figures/inputs ../figures/supplementary
+```
+
 ## Citation
 
-If you use this system or its designs, please cite the accompanying
-manuscript (details to be added on publication; see [`Manuscript/`](Manuscript)).
+If you use this system, its designs or its data, please cite the accompanying manuscript and
+this repository. Citation metadata are in [`CITATION.cff`](CITATION.cff) (GitHub shows a
+"Cite this repository" button); each tagged release is archived on Zenodo with a DOI.
 
 ## License
 

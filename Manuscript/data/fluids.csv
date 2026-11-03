@@ -1,0 +1,8 @@
+nominal_viscosity_cP,fluid_token,commercial_grade,material_type,measured_viscosity_cP,density_g_mL,tip_gauge
+1,DI-Water,Water,Aqueous,1,0.998,16
+1000,Glycerin,Glycerol,Polyol,1000,1.261,16
+5000,Bluesil_47V5000,Bluesil FLD 47V5000,Silicone oil,5765,0.973,14
+12500,Bluesil_47V12500,Bluesil FLD 47V12500,Silicone oil,14570,0.973,14
+30000,Bluesil_47V30000,Bluesil FLD 47V30000,Silicone oil,31870,0.973,14
+38000,Siltech60000,Siltech F-60000,Silicone oil,37020,0.973,14
+60000,Bluesil_47V60000,Bluesil FLD 47V60000,Silicone oil,69080,0.973,14

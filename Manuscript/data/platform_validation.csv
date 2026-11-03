@@ -1,0 +1,9 @@
+vial,trial,pen,fluid,target_g,syringe_fill_before_pct,syringe_fill_after_pct,dispense_speed_mm_s,dispense_time_s,dispense_flow_mL_s,actual_weight_g,job_duration_s
+1,1,white,Bluesil FLD 47V12500,1.0,72.28,59.08,0.7667,18.6366,0.1542,0.991,37.3326
+2,1,white,Bluesil FLD 47V12500,1.0,59.02,45.69,0.7589,18.801,0.1526,1.014,37.4987
+3,1,black,Siltech F-60000,0.3,56.67,52.38,0.285,16.9497,0.0573,0.305,35.589
+4,1,black,Siltech F-60000,0.3,52.38,48.12,1.1985,11.775,0.241,0.304,30.5184
+5,2,white,Bluesil FLD 47V12500,1.0,71.94,58.77,0.7584,18.7987,0.1525,1.017,37.3969
+6,2,white,Bluesil FLD 47V12500,1.0,58.77,45.62,0.7593,18.7025,0.1527,0.997,37.3506
+7,2,black,Siltech F-60000,0.3,32.83,28.55,1.1541,11.7354,0.232,0.326,30.397
+8,2,black,Siltech F-60000,0.3,44.08,39.97,1.2735,11.6081,0.2561,0.287,30.2863
